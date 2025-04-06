@@ -13,20 +13,39 @@
         android:theme="@style/Theme.LoginRegister"
         tools:targetApi="31">
         <activity
-            android:name=".LandingActivity"
+            android:name=".SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
-            android:exported="false">
-        </activity>
+            android:name=".ProfileActivity"
+            android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LandingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
     </application>
 
