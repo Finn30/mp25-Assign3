@@ -1,5 +1,6 @@
 package com.example.loginregister
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -12,8 +13,10 @@ import androidx.core.view.WindowInsetsCompat
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.Patterns
+import android.widget.TextView
 
 class RegisterActivity : AppCompatActivity() {
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -28,35 +31,63 @@ class RegisterActivity : AppCompatActivity() {
         val etPassword = findViewById<EditText>(R.id.etPassword)
         val etConfirmPassword = findViewById<EditText>(R.id.etConfirmPassword)
         val btnRegister = findViewById<Button>(R.id.btnRegister)
-        val btnTogglePassword = findViewById<Button>(R.id.btnTogglePassword)
-        val btnToggleConfirmPassword = findViewById<Button>(R.id.btnToggleConfirmPassword)
         val etUsername = findViewById<EditText>(R.id.etUsername)
+        val tvLogin = findViewById<TextView>(R.id.tvLogin)
 
         var isPasswordVisible = false
-        var isConfirmVisible = false
 
-        btnTogglePassword.setOnClickListener {
-            isPasswordVisible = !isPasswordVisible
-            etPassword.transformationMethod = if (isPasswordVisible)
-                HideReturnsTransformationMethod.getInstance()
-            else
-                PasswordTransformationMethod.getInstance()
+        etPassword.setOnTouchListener { v, event ->
+            if (event.action == android.view.MotionEvent.ACTION_UP) {
+                val drawableEnd = 2
+                val drawable = etPassword.compoundDrawables[drawableEnd]
 
-            etPassword.setSelection(etPassword.text.length)
+                if (drawable != null && event.rawX >= (etPassword.right - drawable.bounds.width() - etPassword.paddingEnd)) {
+                    isPasswordVisible = !isPasswordVisible
 
-            btnTogglePassword.text = if (isPasswordVisible) "👁" else "🙈"
+                    if (isPasswordVisible) {
+                        etPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                        etPassword.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_lock, 0, R.drawable.ic_visibilty, 0
+                        )
+                    } else {
+                        etPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+                        etPassword.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_lock, 0, R.drawable.ic_visibilty_off, 0
+                        )
+                    }
+
+                    etPassword.setSelection(etPassword.text.length)
+                    return@setOnTouchListener true
+                }
+            }
+            false
         }
 
-        btnToggleConfirmPassword.setOnClickListener {
-            isConfirmVisible = !isConfirmVisible
-            etConfirmPassword.transformationMethod = if (isConfirmVisible)
-                HideReturnsTransformationMethod.getInstance()
-            else
-                PasswordTransformationMethod.getInstance()
+        etConfirmPassword.setOnTouchListener { v, event ->
+            if (event.action == android.view.MotionEvent.ACTION_UP) {
+                val drawableEnd = 2
+                val drawable = etConfirmPassword.compoundDrawables[drawableEnd]
 
-            etPassword.setSelection(etPassword.text.length)
+                if (drawable != null && event.rawX >= (etConfirmPassword.right - drawable.bounds.width() - etConfirmPassword.paddingEnd)) {
+                    isPasswordVisible = !isPasswordVisible
 
-            btnTogglePassword.text = if (isPasswordVisible) "👁" else "🙈"
+                    if (isPasswordVisible) {
+                        etConfirmPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                        etConfirmPassword.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_lock, 0, R.drawable.ic_visibilty, 0
+                        )
+                    } else {
+                        etConfirmPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+                        etConfirmPassword.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_lock, 0, R.drawable.ic_visibilty_off, 0
+                        )
+                    }
+
+                    etConfirmPassword.setSelection(etPassword.text.length)
+                    return@setOnTouchListener true
+                }
+            }
+            false
         }
 
         btnRegister.setOnClickListener {
@@ -117,6 +148,9 @@ class RegisterActivity : AppCompatActivity() {
                     finish()
                 }
             }
+        }
+        tvLogin.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 }

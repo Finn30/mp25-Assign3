@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">LoginRegister</string>
+    <string name="inputLogin">Username or Email</string>
+    <string name="pass">Password</string>
+    <string name="tvRegister">Don\'t have an account? Sign up</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="username">Username</string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="tvLogin">Already have an account? Login</string>
 </resources>
