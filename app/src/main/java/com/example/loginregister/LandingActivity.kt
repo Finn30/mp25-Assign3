@@ -22,7 +22,7 @@ class LandingActivity : AppCompatActivity() {
         val tvWelcome = findViewById<TextView>(R.id.tvWelcome)
         val user = intent.getParcelableExtra<User>("user_data")
 
-        tvWelcome.text = "Welcome, ${user?.name}!\n${user?.username}\n${user?.email}"
+        tvWelcome.text = "Welcome, ${user?.name}!"
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
         bottomNavigationView.background = null
@@ -31,21 +31,25 @@ class LandingActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.menuHome -> {
                     val intent = Intent(this, HomeActivity::class.java)
+                    intent.putExtra("user_data", user)
                     startActivity(intent)
                     true
                 }
                 R.id.menuSearch -> {
                     val intent = Intent(this, SearchActivity::class.java)
+                    intent.putExtra("user_data", user)
                     startActivity(intent)
                     true
                 }
                 R.id.menuProfile -> {
                     val intent = Intent(this, ProfileActivity::class.java)
+                    intent.putExtra("user_data", user)
                     startActivity(intent)
                     true
                 }
                 R.id.menuSettings -> {
                     val intent = Intent(this, SettingsActivity::class.java)
+                    intent.putExtra("user_data", user)
                     startActivity(intent)
                     true
                 }

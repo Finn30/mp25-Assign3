@@ -2,6 +2,7 @@ package com.example.loginregister
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -20,16 +21,35 @@ class ProfileActivity : AppCompatActivity() {
             insets
         }
 
+        val tvHome = findViewById<TextView>(R.id.tvHome)
+        val user = intent.getParcelableExtra<User>("user_data")
+
+        tvHome.text = "Name\t: ${user?.name}\nUsername\t: ${user?.username}\nEmail\t: ${user?.email}"
+
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.background = null
         bottomNavigationView.selectedItemId = R.id.menuProfile
         bottomNavigationView.setOnItemSelectedListener { item ->
             if (item.itemId == bottomNavigationView.selectedItemId) return@setOnItemSelectedListener true
             when (item.itemId) {
-                R.id.menuHome -> startActivity(Intent(this, HomeActivity::class.java))
-                R.id.menuSearch -> startActivity(Intent(this, SearchActivity::class.java))
-                R.id.menuProfile -> startActivity(Intent(this, ProfileActivity::class.java))
-                R.id.menuSettings -> startActivity(Intent(this, SettingsActivity::class.java))
+                R.id.menuHome -> {
+                    val intent = Intent(this, HomeActivity::class.java)
+                    intent.putExtra("user_data", user)
+                    startActivity(intent)
+                    true
+                }
+                R.id.menuSearch -> {
+                    val intent = Intent(this, SearchActivity::class.java)
+                    intent.putExtra("user_data", user)
+                    startActivity(intent)
+                    true
+                }
+                R.id.menuSettings -> {
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    intent.putExtra("user_data", user)
+                    startActivity(intent)
+                    true
+                }
             }
             true
         }
